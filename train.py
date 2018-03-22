@@ -6,6 +6,7 @@ def create_parser():
     """Create command line parser.
 
     Create parser what can process all arguments.
+    :return:
     """
     parser = argparse.ArgumentParser(
         prog="Script for collecting statistics to generation new text.",
@@ -22,7 +23,12 @@ def create_parser():
 parser = create_parser()
 commands = parser.parse_args()
 
-def get_filelist(commands):
+def get_filelist():
+    """
+    Get list of source files.
+
+    :return: List of source files.
+    """
     filelist = list()
     filelist.append(sys.stdin)
 
