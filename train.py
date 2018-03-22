@@ -68,3 +68,31 @@ def write_model(model_to_write):
     """
     for first_word in model_to_write.keys():
         print(first_word, *model_to_write[first_word])
+
+list_of_files = get_filelist()  # This list includes only stdin if user wants read from stdin
+model = dict()                  # Here's a model of input text.
+
+def add_pair(first_word, second_word):
+    """
+    Add pair of words.
+
+    Add pair of connected words in model of text.
+    :param first_word: First word.
+    :param second_word: Second word.
+    """
+    if first_word in model.keys():
+        model[first_word].append(second_word)
+    else:
+        model[first_word] = list(second_word)
+
+for file in list_of_files:
+    line = file.readline()
+    prev_word = None
+    while not line == "":
+        word_list = prepare_line(line)
+        for word in word_list:
+            if prev_word != None:
+                add_pair(prev_word, word)
+            prev_word = word
+
+write_model(model)
