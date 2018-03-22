@@ -6,7 +6,7 @@ def create_parser():
     """Create command line parser.
 
     Create parser what can process all arguments.
-    :return:
+    :return parser: Parser with parameters.
     """
     parser = argparse.ArgumentParser(
         prog="Script for collecting statistics to generation new text.",
@@ -27,7 +27,8 @@ def get_filelist():
     """
     Get list of source files.
 
-    :return: List of source files.
+    Get list of source files(according to command line arguments).
+    :return filelist: List of source files.
     """
     filelist = list()
     filelist.append(sys.stdin)
@@ -39,10 +40,20 @@ def get_filelist():
             filelist.append(open(filename, "r"))
     return filelist
 
-def process_line(line):
-    '''Process one line.'''
+def prepare_line(line):
+    """
+    Prepare one line.
 
-    '''Remove non-alphabetic symbols(and transform to lowercase'''
+    Prepare one line for processing.
+    :param line: Line of source text
+    :return: List of words in this line.
+    """
+    good_line = str("")
 
-filelist = get_filelist()
+    for char in line:
+        if char.isalpha():
+            good_line += char
+        else:
+            good_line += ' '
 
+    return list(good_line.split())
