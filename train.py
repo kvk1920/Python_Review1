@@ -63,7 +63,10 @@ def prepare_line(line):
             good_line += char
         elif good_line and good_line[-1] != ' ':
             good_line += ' '
+    if commands.lc:
+        good_line = good_line.lower()
     return list(good_line.split())
+
 
 def write_model(model_to_write):
     """
