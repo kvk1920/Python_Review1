@@ -16,12 +16,13 @@ def create_parser():
     parser.add_argument('--input-dir', help= "Path to source directory")
     parser.add_argument('--model', help= 'Path to result directory')
     parser.add_argument('--lc', help= 'Save texts in lowercase.')
-    parser.add_argument('--length', help= 'Length of generation sequence.')
     return parser
 
 
 parser = create_parser()
 commands = parser.parse_args()
+
+sys.stdout = commands.model
 
 def get_filelist():
     """
@@ -57,3 +58,13 @@ def prepare_line(line):
             good_line += ' '
 
     return list(good_line.split())
+
+def write_model(model_to_write):
+    """
+    Write model.
+
+    Write model to file.
+    :param model_to_write: Model to write.
+    """
+    for first_word in model_to_write.keys():
+        print(first_word, *model_to_write[first_word])
