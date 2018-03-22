@@ -13,9 +13,9 @@ def create_parser():
         description= '''This program collects statistic on the source texts.''',
         epilog= '''(c) March 2018, Kalmykov V.K.'''
     )
-    parser.add_argument('--input-dir', help= "Path to source directory")
-    parser.add_argument('--model', help= 'Path to result directory')
-    parser.add_argument('--lc', help= 'Save texts in lowercase.')
+    parser.add_argument('--input-dir', help= "Path to source directory", nargs= '?')
+    parser.add_argument('--model', help= 'Path to result directory', nargs= 1)
+    parser.add_argument('--lc', help= 'Save texts in lowercase.', nargs= '?')
     return parser
 
 
