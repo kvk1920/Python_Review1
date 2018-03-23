@@ -2,6 +2,7 @@ import sys
 import argparse
 import os
 
+
 def create_parser():
     """Create command line parser.
 
