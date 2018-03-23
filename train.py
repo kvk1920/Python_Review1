@@ -98,8 +98,11 @@ def write_model(model_to_write, result_file):
     """
     Write model.
 
-    Write model to file.
+    Write model to file in this format:
+    In one line first word is the first word of pair, and then there is list of
+    word-number_of_this_word.
     :param model_to_write: Model to write.
+    :param result_file: Output file(ot stdout).
     """
     for first_word in model_to_write.keys():
         result_file.write(first_word + " " +
