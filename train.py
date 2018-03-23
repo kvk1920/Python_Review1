@@ -108,4 +108,4 @@ for file in list_of_files:
             prev_word = word
         line = file.readline()
 
-write_model(model)
+write_model(model, result_file)
