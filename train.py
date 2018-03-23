@@ -30,7 +30,7 @@ commands = parser.parse_args()
 result_file = open(str(*commands.model), "w")
 
 
-def get_filelist():
+def get_filelist(commands):
     """
     Get list of source files.
 
@@ -80,7 +80,7 @@ def write_model(model_to_write):
                           " ".join(model_to_write[first_word]) + "\n")
 
 
-list_of_files = get_filelist()
+list_of_files = get_filelist(commands)
 model = dict()
 
 
@@ -92,10 +92,9 @@ def add_pair(first_word, second_word):
     :param first_word: First word.
     :param second_word: Second word.
     """
-    if first_word in model.keys():
-        model[first_word].append(second_word)
-    else:
-        model[first_word] = list(second_word)
+    if first_word not in model.keys():
+        model[first_word] = list()
+    model[first_word].append(second_word)
 
 
 for file in list_of_files:
