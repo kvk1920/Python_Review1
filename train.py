@@ -24,12 +24,6 @@ def create_parser():
     return parser
 
 
-parser = create_parser()
-commands = parser.parse_args()
-
-result_file = open(str(*commands.model), "w")
-
-
 def get_filelist(commands):
     """
     Get list of source files.
@@ -80,11 +74,7 @@ def write_model(model_to_write, result_file):
                           " ".join(model_to_write[first_word]) + "\n")
 
 
-list_of_files = get_filelist(commands)
-model = dict()
-
-
-def add_pair(first_word, second_word):
+def add_pair(first_word, second_word, model):
     """
     Add pair of words.
 
@@ -97,15 +87,28 @@ def add_pair(first_word, second_word):
     model[first_word].append(second_word)
 
 
-for file in list_of_files:
-    line = file.readline()
-    prev_word = None
-    while line != "":
-        word_list = prepare_line(line)
-        for word in word_list:
-            if prev_word:
-                add_pair(prev_word, word)
-            prev_word = word
-        line = file.readline()
+def run():
+    """
+    Run program.
 
-write_model(model, result_file)
+    Main function that run all program.
+    """
+    parser = create_parser()
+    commands = parser.parse_args()
+    result_file = open(str(*commands.model), "w")
+    list_of_files = get_filelist(commands)
+    model = dict()
+    for file in list_of_files:
+        line = file.readline()
+        prev_word = None
+        while line != "":
+            word_list = prepare_line(line)
+            for word in word_list:
+                if prev_word:
+                    add_pair(prev_word, word, model)
+                prev_word = word
+            line = file.readline()
+    write_model(model, result_file)
+
+
+run()
