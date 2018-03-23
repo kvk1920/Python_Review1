@@ -129,6 +129,7 @@ def run():
                     add_pair(prev_word, word, model)
                 prev_word = word
             line = file.readline()
+        file.close()
     write_model(model, result_file)
 
 
