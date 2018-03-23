@@ -42,7 +42,7 @@ def get_filelist(commands):
     return filelist
 
 
-def prepare_line(line):
+def prepare_line(line, commands):
     """
     Prepare one line.
 
@@ -102,7 +102,7 @@ def run():
         line = file.readline()
         prev_word = None
         while line != "":
-            word_list = prepare_line(line)
+            word_list = prepare_line(line, commands)
             for word in word_list:
                 if prev_word:
                     add_pair(prev_word, word, model)
