@@ -1,7 +1,7 @@
 import sys
 import argparse
 import os
-
+from collections import defaultdict
 
 def create_parser():
     """Create command line parser.
@@ -42,7 +42,6 @@ def get_filelist(commands):
     """
     filelist = list()
     filelist.append(sys.stdin)
-
     if commands.input_dir:
         filenames = os.listdir(commands.input_dir)
         filelist.clear()
@@ -71,20 +70,22 @@ def prepare_line(line, commands):
     return list(good_line.split())
 
 
-def write_model(model_to_write, result_file):
+def write_model(model, result_file):
     """
     Write model.
 
     Write model to file in this format:
     In one line first word is the first word of pair, and then there is list of
     word-number_of_this_word.
-    :param model_to_write: Model to write.
+    :param model: Model to write.
     :param result_file: Output file(ot stdout).
     :return: None.
     """
-    for first_word in model_to_write.keys():
-        result_file.write(first_word + " " +
-                          " ".join(model_to_write[first_word]) + "\n")
+    for first_word in model.keys():
+        line = first_word
+        for word, counter in model[first_word].items():
+            line += ' ' + word + ' ' + str(counter)
+        result_file.write(line + '\n')
 
 
 def add_pair(first_word, second_word, model):
@@ -94,10 +95,13 @@ def add_pair(first_word, second_word, model):
     Add pair of connected words in model of text.
     :param first_word: First word.
     :param second_word: Second word.
+    :param model: Model of text.
     """
     if first_word not in model.keys():
-        model[first_word] = list()
-    model[first_word].append(second_word)
+        model[first_word] = dict()
+    if second_word not in model[first_word].keys():
+        model[first_word][second_word] = 0
+    model[first_word][second_word] += 1
 
 
 def run():
@@ -105,10 +109,14 @@ def run():
     Run program.
 
     Main function that run all program.
+    1. Creating parser of command line arguments.
+    2. Reading list of files.
+    3. Reading all files.
+    4. Writing model to file.
     """
     parser = create_parser()
     commands = parser.parse_args()
-    result_file = open(str(*commands.model), "w")
+    result_file = open(commands.model, "w")
     list_of_files = get_filelist(commands)
     model = dict()
     for file in list_of_files:
