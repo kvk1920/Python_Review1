@@ -68,7 +68,7 @@ def prepare_line(line):
     return list(good_line.split())
 
 
-def write_model(model_to_write):
+def write_model(model_to_write, result_file):
     """
     Write model.
 

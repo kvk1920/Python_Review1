@@ -60,6 +60,7 @@ def print_word(word):
 
     Print word and choose the next word.
     :param word: Current word.
+    :return: Next word.
     """
     if not word:
         word = random.choice(words)
@@ -68,11 +69,12 @@ def print_word(word):
         word = None
     else:
         word = random.choice(model[word])
+    return word;
 
 
 read_input()
 current_word = commands.seed
 
 for i in range(int(*commands.length)):
-    print_word(current_word)
+    current_word = print_word(current_word)
 print()
