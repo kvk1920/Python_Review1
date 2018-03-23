@@ -20,7 +20,8 @@ def create_parser():
     parser.add_argument('--model', help='Path to result directory',
                         nargs=1,
                         type=str)
-    parser.add_argument('--lc', help= 'Save texts in lowercase.')
+    parser.add_argument('--lc', action='store_true',
+                        help='Save texts in lowercase.')
     return parser
 
 
