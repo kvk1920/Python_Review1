@@ -3,12 +3,34 @@ import argparse
 import os
 
 class word_counter:
+    """
+    Word counter class.
+
+    Class that contain word ans number of this word.
+    """
     def __init__(self, s, cnt = 0):
+        """
+        Constructor.
+        :param s: Word.
+        :param cnt: Number of this word.
+        """
         self.word = s
         self.counter = cnt
     def inc(self):
+        """
+        Increment number of these words.
+
+        Add 1 to field "counter".
+        :return: None.
+        """
         self.counter += 1
     def str(self):
+        """
+        Converting to string.
+
+        Converting to string for "print"-operator.
+        :return: String with word and integer.
+        """
         return self.word + ' ' + str(self.counter)
 
 
