@@ -2,6 +2,15 @@ import sys
 import argparse
 import os
 
+class word_counter:
+    def __init__(self, s, cnt = 0):
+        self.word = s
+        self.counter = cnt
+    def inc(self):
+        self.counter += 1
+    def str(self):
+        return self.word + ' ' + str(self.counter)
+
 
 def create_parser():
     """Create command line parser.
