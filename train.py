@@ -2,42 +2,18 @@ import sys
 import argparse
 import os
 
-class word_counter:
-    """
-    Word counter class.
-
-    Class that contain word ans number of this word.
-    """
-    def __init__(self, s, cnt = 0):
-        """
-        Constructor.
-        :param s: Word.
-        :param cnt: Number of this word.
-        """
-        self.word = s
-        self.counter = cnt
-    def inc(self):
-        """
-        Increment number of these words.
-
-        Add 1 to field "counter".
-        :return: None.
-        """
-        self.counter += 1
-    def str(self):
-        """
-        Converting to string.
-
-        Converting to string for "print"-operator.
-        :return: String with word and integer.
-        """
-        return self.word + ' ' + str(self.counter)
-
 
 def create_parser():
     """Create command line parser.
 
     Create parser what can process all arguments.
+    Input directory
+    It's path to input directory, the files in this directory
+    will be used for making model.
+    Model file name
+    It's name of model file, in this file will been writen the model.
+    Convert to lowercase
+    If user wants to convert all words to lowercase.
     :return parser: Parser with parameters.
     """
     parser = argparse.ArgumentParser(
@@ -47,9 +23,8 @@ def create_parser():
         epilog='''(c) March 2018, Kalmykov V.K.'''
     )
     parser.add_argument('--input-dir', help="Path to source directory",
-                        type=str, nargs='?')
+                        type=str)
     parser.add_argument('--model', help='Path to result directory',
-                        nargs=1,
                         type=str)
     parser.add_argument('--lc', action='store_true',
                         help='Save texts in lowercase.')
@@ -61,6 +36,8 @@ def get_filelist(commands):
     Get list of source files.
 
     Get list of source files(according to command line arguments).
+    If there isn't input directory, filelist will contain only stdin.
+    In another case filelist will contain all open files from filenames.
     :return filelist: List of source files.
     """
     filelist = list()
@@ -76,14 +53,14 @@ def get_filelist(commands):
 
 def prepare_line(line, commands):
     """
-    Prepare one line.
+    Prepare one line for appending into model.
 
-    Prepare one line for processing.
-    :param line: Line of source text
+    This function takes all words from line.
+    :param line: Line of source text.
+    :param commands: Command line arguments.
     :return: List of words in this line.
     """
     good_line = str("")
-
     for char in line:
         if char.isalpha():
             good_line += char
@@ -103,6 +80,7 @@ def write_model(model_to_write, result_file):
     word-number_of_this_word.
     :param model_to_write: Model to write.
     :param result_file: Output file(ot stdout).
+    :return: None.
     """
     for first_word in model_to_write.keys():
         result_file.write(first_word + " " +
