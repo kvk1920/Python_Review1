@@ -1,7 +1,6 @@
 import sys
 import argparse
 import os
-from collections import defaultdict
 
 def create_parser():
     """Create command line parser.
