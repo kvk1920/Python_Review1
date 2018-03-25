@@ -6,12 +6,12 @@ class ParserTestCase(unittest.TestCase):
 
     def test_lc(self):
         parser = train.create_parser()
-        namespace = parser.parse_args(("--lc", ));
+        namespace = parser.parse_args(("--lc", ))
         self.assertIsNotNone(namespace.lc)
 
     def test_input_dir(self):
         parser = train.create_parser()
-        namespace = parser.parse_args(("--input-dir", "input/"));
+        namespace = parser.parse_args(("--input-dir", "input/"))
         self.assertEqual("input/", namespace.input_dir)
 
     def test_model(self):
