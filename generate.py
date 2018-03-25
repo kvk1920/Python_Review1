@@ -76,15 +76,16 @@ def print_word(word, model, output):
         return random.choice(word_list)
 
 
-def run():
+def run(args):
     """
     Main function.
 
     Generate text.
-    :return:
+    :param args: Command line arguments.
+    :return: None
     """
     parser = create_parser()
-    commands = parser.parse_args()
+    commands = parser.parse_args(args)
     output = sys.stdout
     if commands.output:
         output = open(commands.output)
@@ -100,4 +101,5 @@ def run():
     print()
 
 
-run()
+if __name__ == "__main__":
+    run(sys.argv[1:])
