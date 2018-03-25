@@ -1,6 +1,7 @@
 import sys
 import argparse
 import os
+import unittest
 
 
 def create_parser():
@@ -104,7 +105,7 @@ def add_pair(first_word, second_word, model):
     model[first_word][second_word] += 1
 
 
-def run():
+def run(args):
     """
     Run program.
 
@@ -113,9 +114,10 @@ def run():
     2. Reading list of files.
     3. Reading all files.
     4. Writing model to file.
+    :param args: Command line arguments.
     """
     parser = create_parser()
-    commands = parser.parse_args()
+    commands = parser.parse_args(args)
     result_file = open(commands.model, "w")
     list_of_files = get_filelist(commands)
     model = dict()
@@ -133,4 +135,5 @@ def run():
     write_model(model, result_file)
 
 
-run()
+if __name__ == "__main__":
+    run(sys.argv[1:])
