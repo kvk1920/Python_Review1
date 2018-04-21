@@ -95,7 +95,7 @@ def run(args):
     output = sys.stdout
     if commands.output:
         output = open(commands.output)
-    model = read_input(commands)
+    model = read_input(commands.model)
     current_word = None
     if commands.seed:
         current_word = commands.seed

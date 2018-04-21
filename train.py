@@ -32,22 +32,23 @@ def create_parser():
     return parser
 
 
-def get_filelist(commands):
+def get_filelist(input_directory):
     """
     Get list of source files.
 
     Get list of source files(according to command line arguments).
     If there isn't input directory, filelist will contain only stdin.
     In another case filelist will contain all open files from filenames.
+    :param input_directory: Input directory.
     :return filelist: List of source files.
     """
     filelist = list()
     filelist.append(sys.stdin)
-    if commands.input_dir:
-        filenames = os.listdir(commands.input_dir)
+    if input_directory:
+        filenames = os.listdir(input_directory)
         filelist.clear()
         for filename in filenames:
-            filelist.append(open(commands.input_dir + filename, "r"))
+            filelist.append(open(input_directory + filename, "r"))
     return filelist
 
 
@@ -119,7 +120,7 @@ def run(args):
     parser = create_parser()
     commands = parser.parse_args(args)
     result_file = open(commands.model, "w")
-    list_of_files = get_filelist(commands)
+    list_of_files = get_filelist(commands.input_dir)
     model = dict()
     for file in list_of_files:
         line = file.readline()
