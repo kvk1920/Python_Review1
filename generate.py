@@ -94,8 +94,7 @@ def run(args):
     if commands.seed:
         current_word = commands.seed
         if current_word not in model.keys():
-            print("There isn't any " + current_word + " in this model. Sorry.")
-            quit(0)
+            raise ValueError("Start word isn't correct.")
     for i in range(int(commands.length)):
         current_word = print_word(current_word, model, output)
     print()
