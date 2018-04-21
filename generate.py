@@ -53,19 +53,19 @@ def read_input(model_name):
     return model
 
 
-def print_word(word, model, output):
+def choose_next_word(word, model, generated_sequence):
     """
     Print word.
 
     Print word and choose the next word.
     :param word: Current word.
     :param model: Model of text.
-    :param output: Output file.
+    :param generated_sequence: List of generated words.
     :return: Next word.
     """
     if not word:
         word = random.choice(list(model.keys()))
-    output.write(word + ' ')
+    generated_sequence.append(word)
     if word not in model.keys() or not len(model[word]):
         return None
     else:
@@ -74,6 +74,12 @@ def print_word(word, model, output):
             for k in range(number):
                 word_list.append(next_word)
         return random.choice(word_list)
+
+
+def print_output(word_list, output):
+    for word in word_list:
+        output.write(word, ' ')
+    print()
 
 
 def run(args):
@@ -95,9 +101,10 @@ def run(args):
         current_word = commands.seed
         if current_word not in model.keys():
             raise ValueError("Start word isn't correct.")
+    generated_sequence = list()
     for i in range(int(commands.length)):
-        current_word = print_word(current_word, model, output)
-    print()
+        current_word = choose_next_word(current_word, model, generated_sequence)
+    print_output(generated_sequence, output)
 
 
 if __name__ == "__main__":
