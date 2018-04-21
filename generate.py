@@ -34,16 +34,16 @@ def create_parser():
     return parser
 
 
-def read_input(commands):
+def read_input(model_name):
     """
     Read model from file.
 
     Read model of text from file that created by train.py.
-    :param commands: Command line arguments.
+    :param model_name: Name of model file.
     :return: Read model.
     """
     model = dict()
-    with open(commands.model, "r") as istream:
+    with open(model_name, "r") as istream:
         line = istream.readline().strip().split()
         while line:
             model[line[0]] = dict()
