@@ -1,7 +1,7 @@
 import sys
 import argparse
 import os
-import unittest
+import collections
 
 
 def create_parser():
@@ -61,12 +61,8 @@ def prepare_line(line, is_lower):
     :param commands: Command line arguments.
     :return: List of words in this line.
     """
-    good_line = str("")
-    for char in line:
-        if char.isalpha():
-            good_line += char
-        elif good_line and good_line[-1] != ' ':
-            good_line += ' '
+    good_line = \
+        ''.join(list(map(lambda c: c if c.isalpha() else ' ', line))).split()
     if is_lower:
         good_line = good_line.lower()
     return list(good_line.split())
@@ -99,10 +95,7 @@ def add_pair(first_word, second_word, model):
     :param second_word: Second word.
     :param model: Model of text.
     """
-    if first_word not in model.keys():
-        model[first_word] = dict()
-    if second_word not in model[first_word].keys():
-        model[first_word][second_word] = 0
+    model.setdefault(first_word, collections.Counter())
     model[first_word][second_word] += 1
 
 
