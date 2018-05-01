@@ -3,6 +3,9 @@ import generate
 
 
 class ParserTestCase(unittest.TestCase):
+    '''
+    Новые тесты так и не были придуманны...
+    '''
 
     def setUp(self):
         self.parser = generate.create_parser()
@@ -19,6 +22,6 @@ class ParserTestCase(unittest.TestCase):
         namespace = self.parser.parse_args(("--length", "10"))
         self.assertEqual(namespace.length, 10)
 
-
+        
 if __name__ == "__main__":
     unittest.main()
